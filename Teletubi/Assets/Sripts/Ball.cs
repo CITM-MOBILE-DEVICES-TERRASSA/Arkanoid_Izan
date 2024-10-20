@@ -9,7 +9,7 @@ public class BallController : MonoBehaviour
     public Transform player; 
 
     private Rigidbody2D rb;
-    private bool isLaunched = false; 
+    public bool isLaunched = false; 
 
     void Start()
     {
