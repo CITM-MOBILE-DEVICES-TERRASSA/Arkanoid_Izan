@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Asegúrate de incluir esto para trabajar con UI
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
     private int currentScore; 
     private int highScore; 
 
-    public Text scoreText; 
-    public Text highScoreText; 
+    public TextMeshProUGUI scoreText; 
+    public TextMeshProUGUI highScoreText; 
 
     void Start()
     {
@@ -63,12 +63,12 @@ public class ScoreManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + currentScore; 
+            scoreText.text = "" + currentScore; 
         }
 
         if (highScoreText != null)
         {
-            highScoreText.text = "High Score: " + highScore; 
+            highScoreText.text = "" + highScore; 
         }
     }
 }
