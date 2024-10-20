@@ -490,6 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 3
+  lifesText: {fileID: 1996196819}
 --- !u!114 &396980885
 MonoBehaviour:
   m_ObjectHideFlags: 0
