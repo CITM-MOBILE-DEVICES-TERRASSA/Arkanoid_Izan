@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4567688126916440817}
   - component: {fileID: 411138832428627636}
-  - component: {fileID: 6775256183946785425}
   - component: {fileID: -431258114222753993}
   - component: {fileID: 2716589432743693130}
+  - component: {fileID: -1435950504829567581}
   m_Layer: 0
   m_Name: LadrilloAvanzado
   m_TagString: Untagged
@@ -87,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6775256183946785425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999860926897282497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a326434147474664e9098130dac24b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 3
-  puntos: 1
 --- !u!114 &-431258114222753993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,3 +146,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &-1435950504829567581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999860926897282497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a326434147474664e9098130dac24b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  puntos: 1
