@@ -295,10 +295,6 @@ MonoBehaviour:
   spawnArea: {fileID: 219080121}
   distanceX: 0.5
   distanceY: 0.5
-  probabilidadLadrillo1: 0.4
-  probabilidadLadrillo2: 0.3
-  probabilidadLadrillo3: 0.2
-  probabilidadLadrillo4: 0.15
 --- !u!61 &219080121
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1201,10 +1197,6 @@ MonoBehaviour:
   spawnArea: {fileID: 1392559568}
   distanceX: 0.5
   distanceY: 0.5
-  probabilidadLadrillo1: 0.4
-  probabilidadLadrillo2: 0.3
-  probabilidadLadrillo3: 0.2
-  probabilidadLadrillo4: 0.15
 --- !u!61 &1392559568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2096,10 +2088,6 @@ MonoBehaviour:
   spawnArea: {fileID: 2069962786}
   distanceX: 0.5
   distanceY: 0.5
-  probabilidadLadrillo1: 0.4
-  probabilidadLadrillo2: 0.3
-  probabilidadLadrillo3: 0.2
-  probabilidadLadrillo4: 0.15
 --- !u!61 &2069962786
 BoxCollider2D:
   m_ObjectHideFlags: 0
