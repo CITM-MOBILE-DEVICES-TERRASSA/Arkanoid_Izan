@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class LadrillosManager : MonoBehaviour
 {
     public GameObject ladrilloPrefab;
@@ -9,13 +9,25 @@ public class LadrillosManager : MonoBehaviour
     public GameObject ladrilloPrefab3;
     public GameObject ladrilloPrefab4;
 
-    public BoxCollider2D spawnArea;  
-    public float distanceX = 0.5f;   
-    public float distanceY = 0.5f;   
+    public BoxCollider2D spawnArea;
+    public float distanceX = 0.5f;
+    public float distanceY = 0.5f;
 
     void Start()
     {
         SpawnBricks();
+        StartCoroutine(WaitBeforeCheckingBricks());
+    }
+
+    IEnumerator WaitBeforeCheckingBricks()
+    {
+        yield return new WaitForSeconds(1.0f); 
+
+        while (true)
+        {
+            CheckRemainingBricks();
+            yield return new WaitForSeconds(0.5f); 
+        }
     }
 
     void SpawnBricks()
@@ -43,7 +55,7 @@ public class LadrillosManager : MonoBehaviour
 
                 GameObject brickToSpawn = ChooseBrickPrefab();
 
-                Instantiate(brickToSpawn, new Vector3(posX, posY, 0f), Quaternion.identity);            
+                Instantiate(brickToSpawn, new Vector3(posX, posY, 0f), Quaternion.identity, transform);
             }
         }
     }
@@ -54,11 +66,11 @@ public class LadrillosManager : MonoBehaviour
         float randomValue = Random.Range(0f, 1f);
         if (randomValue < 0.5f)
         {
-            return ladrilloPrefab; 
+            return ladrilloPrefab;
         }
         else if (randomValue < 0.75f)
         {
-            return ladrilloPrefab2; 
+            return ladrilloPrefab2;
         }
         else if (randomValue < 0.9f)
         {
@@ -66,8 +78,27 @@ public class LadrillosManager : MonoBehaviour
         }
         else
         {
-            return ladrilloPrefab4; 
+            return ladrilloPrefab4;
         }
     }
 
+    void CheckRemainingBricks()
+    {
+        if (transform.childCount == 0)
+        {
+            ChangeScene();
+        }
+    }
+
+    void ChangeScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+    }
 }
