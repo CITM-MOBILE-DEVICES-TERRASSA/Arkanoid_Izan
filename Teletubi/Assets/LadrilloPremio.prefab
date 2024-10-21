@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  puntos: 1
+  puntos: 10
 --- !u!114 &-8304886758775129193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,8 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126a37501aab534428b8eb1a017b1cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementRange: 2
-  speed: 1
+  movementRange: 5
+  speed: 5
 --- !u!61 &-956021135390786493
 BoxCollider2D:
   m_ObjectHideFlags: 0

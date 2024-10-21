@@ -5,13 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float plaerspeed = 5.0f;
-    // Start is called before the first frame update
+    private bool IA = false;
+    BallController ballController;
     void Start()
     {
-        
+        ballController = FindObjectOfType<BallController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.RightArrow))
@@ -20,6 +20,28 @@ public class Player : MonoBehaviour
         }
         
         if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Translate(Vector3.left * plaerspeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            IA=!IA;
+        }
+
+        if(IA)
+        {
+            Traking();
+        }
+    }
+
+    void Traking()
+    {
+        if(ballController.transform.position.x > transform.position.x)
+        {
+            transform.Translate(Vector3.right * plaerspeed * Time.deltaTime);
+        }
+        else if(ballController.transform.position.x < transform.position.x)
         {
             transform.Translate(Vector3.left * plaerspeed * Time.deltaTime);
         }

@@ -5,70 +5,79 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    private int currentScore; 
-    private int highScore; 
+    private int currentScore;
+    private int highScore;
 
-    public TextMeshProUGUI scoreText; 
-    public TextMeshProUGUI highScoreText; 
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highScoreText;
+
+    private static ScoreManager instance; 
+
+    void Awake()
+    {
+        
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
-        currentScore = 0; 
-        highScore = LoadHighScore(); 
-        UpdateUI(); 
+        highScore = LoadHighScore();
+        UpdateUI();
     }
-
 
     public void AddScore(int scoreToAdd)
     {
-        currentScore += scoreToAdd; 
-        UpdateUI(); 
+        currentScore += scoreToAdd;
+        UpdateUI();
 
-        CheckAndSaveHighScore(); 
+        CheckAndSaveHighScore();
     }
-
 
     private void CheckAndSaveHighScore()
     {
         if (currentScore > highScore)
         {
-            highScore = currentScore; 
-            SaveHighScore(); 
-            UpdateUI(); 
+            highScore = currentScore;
+            SaveHighScore();
+            UpdateUI();
         }
     }
-
 
     public void ResetScore()
     {
         currentScore = 0;
-        UpdateUI(); 
+        UpdateUI();
     }
-
 
     private int LoadHighScore()
     {
-        return PlayerPrefs.GetInt("HighScore", 0); 
+        return PlayerPrefs.GetInt("HighScore", 0);
     }
-
 
     private void SaveHighScore()
     {
-        PlayerPrefs.SetInt("HighScore", highScore); 
-        PlayerPrefs.Save(); 
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.Save();
     }
-
 
     private void UpdateUI()
     {
         if (scoreText != null)
         {
-            scoreText.text = "" + currentScore; 
+            scoreText.text = "" + currentScore;
         }
 
         if (highScoreText != null)
         {
-            highScoreText.text = "" + highScore; 
+            highScoreText.text = "" + highScore;
         }
     }
 }
