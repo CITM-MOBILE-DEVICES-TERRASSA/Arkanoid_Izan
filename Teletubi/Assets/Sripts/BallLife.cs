@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BallLife : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class BallLife : MonoBehaviour
 
     void DestroyBall()
     {
-        Destroy(gameObject); 
+        Destroy(gameObject);
+        SceneManager.LoadScene("Game Over");
     }
 }
