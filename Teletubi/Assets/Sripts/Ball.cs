@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BallController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class BallController : MonoBehaviour
 
     private Rigidbody2D rb;
     public bool isLaunched = false; 
+    public bool powerup= false;
 
     void Start()
     {
@@ -27,6 +29,10 @@ public class BallController : MonoBehaviour
             {
                 LaunchBall();
             }
+        }
+        if (powerup)
+        {
+            PowerUp();
         }
     }
 
@@ -62,5 +68,10 @@ public class BallController : MonoBehaviour
         transform.position = new Vector3(ballPosX, ballPosY, 0);
         rb.velocity = new Vector2(ballVelX, ballVelY);
         isLaunched = false;
+    }
+
+    public void PowerUp()
+    {
+        transform.localScale = new Vector3(2, 2, 1);
     }
 }

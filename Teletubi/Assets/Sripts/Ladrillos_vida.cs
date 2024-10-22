@@ -6,12 +6,15 @@ public class Ladrillos : MonoBehaviour
 {
     public float health = 1.0f; 
     public int puntos = 1;      
+    public bool isspecial = false;
 
     ScoreManager scoreManager;
+    BallController ballController;
 
     void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>(); 
+        ballController = FindObjectOfType<BallController>();
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -30,5 +33,9 @@ public class Ladrillos : MonoBehaviour
     {
         Destroy(gameObject);
         scoreManager.AddScore(puntos);
+        if (isspecial)
+        {
+            ballController.powerup = true;
+        }
     }
 }
