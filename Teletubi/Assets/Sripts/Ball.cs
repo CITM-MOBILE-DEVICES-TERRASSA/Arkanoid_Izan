@@ -45,4 +45,22 @@ public class BallController : MonoBehaviour
     {
         rb.velocity = rb.velocity.normalized * (rb.velocity.magnitude + speedIncreasePerBounce);
     }
+    public void SaveBall()
+    {
+        PlayerPrefs.SetFloat("ballPosX", transform.position.x);
+        PlayerPrefs.SetFloat("ballPosY", transform.position.y);
+        PlayerPrefs.SetFloat("ballVelX", rb.velocity.x);
+        PlayerPrefs.SetFloat("ballVelY", rb.velocity.y);
+    }
+    public void LoadBall()
+    {
+        float ballPosX = PlayerPrefs.GetFloat("ballPosX", 0);
+        float ballPosY = PlayerPrefs.GetFloat("ballPosY", 0);
+        float ballVelX = PlayerPrefs.GetFloat("ballVelX", 0);
+        float ballVelY = PlayerPrefs.GetFloat("ballVelY", 0);
+
+        transform.position = new Vector3(ballPosX, ballPosY, 0);
+        rb.velocity = new Vector2(ballVelX, ballVelY);
+        isLaunched = false;
+    }
 }

@@ -101,4 +101,15 @@ public class LadrillosManager : MonoBehaviour
             SceneManager.LoadScene(nextSceneIndex);
         }
     }
+    public void SaveScene()
+    {
+        PlayerPrefs.SetInt("SavedScene", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadSavedScene()
+    {
+        int savedSceneIndex = PlayerPrefs.GetInt("SavedScene", 0);
+        SceneManager.LoadScene(savedSceneIndex);
+    }    
 }
