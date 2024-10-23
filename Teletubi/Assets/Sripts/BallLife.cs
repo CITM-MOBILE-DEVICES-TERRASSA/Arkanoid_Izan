@@ -9,10 +9,12 @@ public class BallLife : MonoBehaviour
     public int life = 3; 
     BallController ballController;
     public TextMeshProUGUI lifesText;
+    AudioSource AudioSource;
 
     void Start()
     {
         ballController = GetComponent<BallController>();
+        AudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -27,6 +29,7 @@ public class BallLife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Killer"))
         {
+            AudioSource.Play();
             life -= 1;
             ballController.isLaunched = false;
             lifesText.text = "" + life.ToString();

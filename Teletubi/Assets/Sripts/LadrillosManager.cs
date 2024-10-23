@@ -21,12 +21,12 @@ public class LadrillosManager : MonoBehaviour
 
     IEnumerator WaitBeforeCheckingBricks()
     {
-        yield return new WaitForSeconds(1.0f); 
+        yield return new WaitForSeconds(1.0f);
 
         while (true)
         {
             CheckRemainingBricks();
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -111,5 +111,5 @@ public class LadrillosManager : MonoBehaviour
     {
         int savedSceneIndex = PlayerPrefs.GetInt("SavedScene", 0);
         SceneManager.LoadScene(savedSceneIndex);
-    }    
+    }
 }

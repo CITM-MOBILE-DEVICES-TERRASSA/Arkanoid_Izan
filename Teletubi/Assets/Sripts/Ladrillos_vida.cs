@@ -11,15 +11,19 @@ public class Ladrillos : MonoBehaviour
     ScoreManager scoreManager;
     BallController ballController;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>(); 
         ballController = FindObjectOfType<BallController>();
+        audioSource = GetComponent<AudioSource>();
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Killer"))
         {
+            audioSource.Play();
             health -= 1.0f;
 
             if (health <= 0)
