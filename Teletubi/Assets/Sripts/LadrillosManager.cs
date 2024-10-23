@@ -81,35 +81,4 @@ public class LadrillosManager : MonoBehaviour
             return ladrilloPrefab4;
         }
     }
-
-    void CheckRemainingBricks()
-    {
-        if (transform.childCount == 0)
-        {
-            ChangeScene();
-        }
-    }
-
-    void ChangeScene()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        int nextSceneIndex = currentSceneIndex + 1;
-
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadScene(nextSceneIndex);
-        }
-    }
-    public void SaveScene()
-    {
-        PlayerPrefs.SetInt("SavedScene", SceneManager.GetActiveScene().buildIndex);
-        PlayerPrefs.Save();
-    }
-
-    public void LoadSavedScene()
-    {
-        int savedSceneIndex = PlayerPrefs.GetInt("SavedScene", 0);
-        SceneManager.LoadScene(savedSceneIndex);
-    }
 }
