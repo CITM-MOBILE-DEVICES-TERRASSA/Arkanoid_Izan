@@ -13,20 +13,6 @@ public class ScoreManager : MonoBehaviour
 
     private static ScoreManager instance; 
 
-    void Awake()
-    {
-        
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); 
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     void Start()
     {
         highScore = LoadHighScore();

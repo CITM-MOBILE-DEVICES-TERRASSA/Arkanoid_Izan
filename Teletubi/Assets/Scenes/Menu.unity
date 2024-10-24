@@ -812,7 +812,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1670849732}
         m_TargetAssemblyTypeName: Gameover, Assembly-CSharp
-        m_MethodName: PLayAgain
+        m_MethodName: PlayAgain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1293,11 +1293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e23bf82d504f2468ad1ef9e7ee7c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreManager: {fileID: 0}
-  LadrillosManager: {fileID: 0}
-  Player: {fileID: 0}
-  BallController: {fileID: 0}
-  BallLife: {fileID: 0}
 --- !u!114 &1670849732
 MonoBehaviour:
   m_ObjectHideFlags: 0

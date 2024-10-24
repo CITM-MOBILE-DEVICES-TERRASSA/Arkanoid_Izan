@@ -10,10 +10,7 @@ EditorBuildSettings:
     guid: 57a0f8c810d9d5248be76c6508cb7ac9
   - enabled: 1
     path: Assets/Scenes/Arkanoid_1.unity
-    guid: 33276e6ab8ab08f4595cfa1292c3b4e1
-  - enabled: 1
-    path: Assets/Scenes/Arkanoid_2.unity
-    guid: 4c901213df32a7c41892a5f36dd6f1a0
+    guid: 7b8cd0c759455c44aa4b63fb752d9618
   - enabled: 1
     path: Assets/Scenes/VICTORY.unity
     guid: 171b393041d1d1f47a433a576451fecc

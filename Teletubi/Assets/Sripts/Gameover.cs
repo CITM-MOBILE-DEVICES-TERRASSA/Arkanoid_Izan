@@ -16,10 +16,9 @@ public class Gameover : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void PLayAgain()
+    public void PlayAgain()
     {
         SceneManager.LoadScene("Arkanoid_1");
-        scoreManager.ResetScore();
     }
 
     public void OnApplicationQuit()
