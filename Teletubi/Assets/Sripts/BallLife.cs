@@ -41,4 +41,14 @@ public class BallLife : MonoBehaviour
         Destroy(gameObject);
         SceneManager.LoadScene("Game Over");
     }
+
+    public void SaveBallLife()
+    {
+        PlayerPrefs.SetInt("ballLife", life);
+    }
+    public void LoadBallLife()
+    {
+        life = PlayerPrefs.GetInt("ballLife", life);
+        lifesText.text = "" + life.ToString();
+    }
 }

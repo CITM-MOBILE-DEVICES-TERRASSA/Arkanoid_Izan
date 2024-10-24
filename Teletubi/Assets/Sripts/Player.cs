@@ -46,4 +46,14 @@ public class Player : MonoBehaviour
             transform.Translate(Vector3.left * plaerspeed * Time.deltaTime);
         }
     }
+
+    public void SavePlayerPosition()
+    {
+        PlayerPrefs.SetFloat("PlayerX", transform.position.x);
+    }
+    public void LoadPlayerPosition()
+    {
+        float x = PlayerPrefs.GetFloat("PlayerX");
+        transform.position = new Vector3(x, transform.position.y, transform.position.z);
+    }
 }

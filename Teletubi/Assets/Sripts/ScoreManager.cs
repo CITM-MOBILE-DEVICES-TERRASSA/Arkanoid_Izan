@@ -80,4 +80,15 @@ public class ScoreManager : MonoBehaviour
             highScoreText.text = "" + highScore;
         }
     }
+
+    public void SaveCurrentScore()
+    {
+        PlayerPrefs.SetInt("CurrentScore", currentScore);
+        PlayerPrefs.Save();
+    }
+    public void LoadCurrentScore()
+    {
+        currentScore = PlayerPrefs.GetInt("CurrentScore", 0);
+        UpdateUI();
+    }
 }
