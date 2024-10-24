@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Gameover : MonoBehaviour
 {
     ScoreManager scoreManager;
+    public bool newgame = false;
     
     public void Start()
     {
@@ -17,6 +18,10 @@ public class Gameover : MonoBehaviour
     }
 
     public void PlayAgain()
+    {
+        SceneManager.LoadScene("Arkanoid_1");
+    }
+    public void ContinuePlaying()
     {
         SceneManager.LoadScene("Arkanoid_1");
     }

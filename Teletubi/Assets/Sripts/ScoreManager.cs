@@ -2,29 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class ScoreManager : MonoBehaviour
 {
     private int currentScore;
     private int highScore;
-
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
 
-    private static ScoreManager instance; 
+    BallLife ballLife;
 
     void Start()
     {
+        currentScore = LoadCurrentScore();
         highScore = LoadHighScore();
         UpdateUI();
+
+        ballLife = FindObjectOfType<BallLife>();
     }
 
+    private void Update()
+    {
+        if (ballLife.life <= 0)
+        {
+            ResetScore();
+            SaveCurrentScore();
+            UpdateUI();
+        }
+    }
     public void AddScore(int scoreToAdd)
     {
         currentScore += scoreToAdd;
         UpdateUI();
 
         CheckAndSaveHighScore();
+        CheckAndSaveCurrentScore();
     }
 
     private void CheckAndSaveHighScore()
@@ -35,6 +48,11 @@ public class ScoreManager : MonoBehaviour
             SaveHighScore();
             UpdateUI();
         }
+    }
+    private void CheckAndSaveCurrentScore()
+    {
+        SaveCurrentScore(); 
+        UpdateUI();
     }
 
     public void ResetScore()
@@ -54,6 +72,16 @@ public class ScoreManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    private int LoadCurrentScore()
+    {
+        return PlayerPrefs.GetInt("CurrentScore", 0);
+    }
+
+    public void SaveCurrentScore()
+    {
+        PlayerPrefs.SetInt("CurrentScore", currentScore);
+        PlayerPrefs.Save();
+    }
     private void UpdateUI()
     {
         if (scoreText != null)
@@ -65,16 +93,5 @@ public class ScoreManager : MonoBehaviour
         {
             highScoreText.text = "" + highScore;
         }
-    }
-
-    public void SaveCurrentScore()
-    {
-        PlayerPrefs.SetInt("CurrentScore", currentScore);
-        PlayerPrefs.Save();
-    }
-    public void LoadCurrentScore()
-    {
-        currentScore = PlayerPrefs.GetInt("CurrentScore", 0);
-        UpdateUI();
     }
 }
