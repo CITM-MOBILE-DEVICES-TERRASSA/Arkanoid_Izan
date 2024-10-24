@@ -6,8 +6,8 @@ using Unity.VisualScripting;
 
 public class ScoreManager : MonoBehaviour
 {
-    private int currentScore;
-    private int highScore;
+    public int currentScore;
+    public int highScore;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
 
@@ -27,10 +27,11 @@ public class ScoreManager : MonoBehaviour
         if (ballLife.life <= 0)
         {
             ResetScore();
-            SaveCurrentScore();
+            SaveManager.instance.SaveGame(ballLife, this, FindObjectOfType<LadrillosManager>());
             UpdateUI();
         }
     }
+
     public void AddScore(int scoreToAdd)
     {
         currentScore += scoreToAdd;
@@ -82,7 +83,7 @@ public class ScoreManager : MonoBehaviour
         PlayerPrefs.SetInt("CurrentScore", currentScore);
         PlayerPrefs.Save();
     }
-    private void UpdateUI()
+    public void UpdateUI()
     {
         if (scoreText != null)
         {

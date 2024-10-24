@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class LadrillosManager : MonoBehaviour
 {
     public GameObject ladrilloPrefab;
     public GameObject ladrilloPrefab2;
     public GameObject ladrilloPrefab3;
     public GameObject ladrilloPrefab4;
+    public GameObject ladrilloEspecial;  
 
     public BoxCollider2D spawnArea;
     public float distanceX = 0.5f;
@@ -34,15 +36,13 @@ public class LadrillosManager : MonoBehaviour
     {
         Bounds bounds = spawnArea.bounds;
 
-        // Obtener el tamaño del ladrillo, todos tienen el mismo tamaño por lo que solo lo hacemos una vez
         float brickWidth = ladrilloPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
         float brickHeight = ladrilloPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
 
-        // Calcular el número máximo de ladrillos que caben en el área en X y Y
+
         int bricksInRow = Mathf.FloorToInt((bounds.size.x + distanceX) / (brickWidth + distanceX));
         int bricksInColumn = Mathf.FloorToInt((bounds.size.y + distanceY) / (brickHeight + distanceY));
 
-        // Posición inicial
         float startX = bounds.min.x + (brickWidth / 2);
         float startY = bounds.max.y - (brickHeight / 2);
 
@@ -54,15 +54,24 @@ public class LadrillosManager : MonoBehaviour
                 float posY = startY - row * (brickHeight + distanceY);
 
                 GameObject brickToSpawn = ChooseBrickPrefab();
-
                 Instantiate(brickToSpawn, new Vector3(posX, posY, 0f), Quaternion.identity, transform);
             }
         }
+
+        SpawnSpecialBrick(bricksInRow, brickWidth, brickHeight, startX, startY);
+    }
+
+    void SpawnSpecialBrick(int bricksInRow, float brickWidth, float brickHeight, float startX, float startY)
+    {
+        float specialBrickY = startY + (brickHeight + distanceY);
+        int middleBrickIndex = Mathf.FloorToInt(bricksInRow / 2);  
+
+        float posX = startX + middleBrickIndex * (brickWidth + distanceX);
+        Instantiate(ladrilloEspecial, new Vector3(posX, specialBrickY, 0f), Quaternion.identity, transform);
     }
 
     GameObject ChooseBrickPrefab()
     {
-        // Definir probabilidades para cada prefab
         float randomValue = Random.Range(0f, 1f);
         if (randomValue < 0.5f)
         {
@@ -82,10 +91,16 @@ public class LadrillosManager : MonoBehaviour
         }
     }
 
+    public int GetRemainingBricks()
+    {
+        return transform.childCount;
+    }
+
     void CheckRemainingBricks()
     {
-        if (transform.childCount == 0)
+        if (GetRemainingBricks() == 0)
         {
+            SaveManager.instance.SaveGame(FindObjectOfType<BallLife>(), FindObjectOfType<ScoreManager>(), this);
             ChangeScene();
         }
     }
@@ -100,16 +115,5 @@ public class LadrillosManager : MonoBehaviour
         {
             SceneManager.LoadScene(nextSceneIndex);
         }
-    }
-    public void SaveScene()
-    {
-        PlayerPrefs.SetInt("SavedScene", SceneManager.GetActiveScene().buildIndex);
-        PlayerPrefs.Save();
-    }
-
-    public void LoadSavedScene()
-    {
-        int savedSceneIndex = PlayerPrefs.GetInt("SavedScene", 0);
-        SceneManager.LoadScene(savedSceneIndex);
     }
 }

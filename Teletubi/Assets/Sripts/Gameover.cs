@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 public class Gameover : MonoBehaviour
 {
     ScoreManager scoreManager;
-    public bool newgame = false;
-    
+    BallLife ballLife; // Agregar referencia a BallLife
+
     public void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
-    }   
+        ballLife = FindObjectOfType<BallLife>(); 
+    }
+
     public void ResetGame()
     {
         SceneManager.LoadScene("Menu");
@@ -19,20 +21,24 @@ public class Gameover : MonoBehaviour
 
     public void PlayAgain()
     {
+        ResetPlayerStats(); 
         SceneManager.LoadScene("Arkanoid_1");
     }
+
     public void ContinuePlaying()
     {
-        SceneManager.LoadScene("Arkanoid_1");
+        SceneManager.LoadScene("Arkanoid_1"); 
     }
 
     public void OnApplicationQuit()
     {
         Application.Quit();
     }
-    
-    public void Conitnue()
-    {
 
+    private void ResetPlayerStats()
+    {
+        PlayerPrefs.SetInt("CurrentScore", 0); 
+        PlayerPrefs.SetInt("ballLife", 3); 
+        PlayerPrefs.Save();
     }
 }

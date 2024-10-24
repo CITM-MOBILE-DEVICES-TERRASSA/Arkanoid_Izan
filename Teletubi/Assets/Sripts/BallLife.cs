@@ -6,15 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class BallLife : MonoBehaviour
 {
-    public int life = 3; 
+    public int life; 
     BallController ballController;
     public TextMeshProUGUI lifesText;
-    AudioSource AudioSource;
+    AudioSource audioSource;
 
     void Start()
     {
         ballController = GetComponent<BallController>();
-        AudioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+        LoadBallLife(); 
     }
 
     void Update()
@@ -29,26 +30,29 @@ public class BallLife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Killer"))
         {
-            AudioSource.Play();
+            audioSource.Play();
             life -= 1;
+            lifesText.text = life.ToString();
             ballController.isLaunched = false;
-            lifesText.text = "" + life.ToString();
+            SaveManager.instance.SaveGame(this, FindObjectOfType<ScoreManager>(), FindObjectOfType<LadrillosManager>());
         }
     }
 
     void DestroyBall()
     {
-        Destroy(gameObject);
+        SaveBallLife(); 
         SceneManager.LoadScene("Game Over");
     }
 
     public void SaveBallLife()
     {
         PlayerPrefs.SetInt("ballLife", life);
+        PlayerPrefs.Save();
     }
+
     public void LoadBallLife()
     {
-        life = PlayerPrefs.GetInt("ballLife", life);
-        lifesText.text = "" + life.ToString();
+        life = PlayerPrefs.GetInt("ballLife", 3); 
+        lifesText.text = life.ToString();
     }
 }
