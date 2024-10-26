@@ -6,24 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class BallLife : MonoBehaviour
 {
-    public int life; 
+    public int life;
     BallController ballController;
     public TextMeshProUGUI lifesText;
     AudioSource audioSource;
 
     void Start()
     {
-        if (GameManager.instance.newgame)
+        if (GameManager.instance != null)
         {
-            life = 3;
+            life = GameManager.instance.newgame ? 3 : GameManager.instance.LoadBallLife();
         }
-        else
-        {
-            GameManager.instance.LoadBallLife();
-        }
+
         ballController = GetComponent<BallController>();
         audioSource = GetComponent<AudioSource>();
+
+        if (lifesText != null)
+        {
+            lifesText.text = life.ToString(); 
+        }
     }
+
 
     void Update()
     {

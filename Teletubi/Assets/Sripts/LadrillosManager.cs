@@ -9,7 +9,7 @@ public class LadrillosManager : MonoBehaviour
     public GameObject ladrilloPrefab2;
     public GameObject ladrilloPrefab3;
     public GameObject ladrilloPrefab4;
-    public GameObject ladrilloEspecial;  
+    public GameObject ladrilloEspecial;
 
     public BoxCollider2D spawnArea;
     public float distanceX = 0.5f;
@@ -17,7 +17,11 @@ public class LadrillosManager : MonoBehaviour
 
     void Start()
     {
-        SpawnBricks();
+        if (GameManager.instance != null && GameManager.instance.newgame)
+        {
+            SpawnBricks();
+        }
+
         StartCoroutine(WaitBeforeCheckingBricks());
     }
 
@@ -32,13 +36,12 @@ public class LadrillosManager : MonoBehaviour
         }
     }
 
-    void SpawnBricks()
+    public void SpawnBricks()
     {
         Bounds bounds = spawnArea.bounds;
 
         float brickWidth = ladrilloPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
         float brickHeight = ladrilloPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
-
 
         int bricksInRow = Mathf.FloorToInt((bounds.size.x + distanceX) / (brickWidth + distanceX));
         int bricksInColumn = Mathf.FloorToInt((bounds.size.y + distanceY) / (brickHeight + distanceY));
@@ -64,7 +67,7 @@ public class LadrillosManager : MonoBehaviour
     void SpawnSpecialBrick(int bricksInRow, float brickWidth, float brickHeight, float startX, float startY)
     {
         float specialBrickY = startY + (brickHeight + distanceY);
-        int middleBrickIndex = Mathf.FloorToInt(bricksInRow / 2);  
+        int middleBrickIndex = Mathf.FloorToInt(bricksInRow / 2);
 
         float posX = startX + middleBrickIndex * (brickWidth + distanceX);
         Instantiate(ladrilloEspecial, new Vector3(posX, specialBrickY, 0f), Quaternion.identity, transform);

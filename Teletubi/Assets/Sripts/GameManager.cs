@@ -101,16 +101,15 @@ public class GameManager : MonoBehaviour
 
     public void SaveBallLife()
     {
-        if (ballLife != null)
-        {
-            PlayerPrefs.SetInt("BallLife", ballLife.life);
-            PlayerPrefs.Save();
-        }
+
+        PlayerPrefs.SetInt("BallLife", ballLife.life);
+        PlayerPrefs.Save();
+
     }
 
     public int LoadBallLife()
     {
-        return PlayerPrefs.GetInt("BallLife", 3); // Valor predeterminado
+        return PlayerPrefs.GetInt("BallLife", 3);
     }
 
     public void SaveBricks()
@@ -119,20 +118,13 @@ public class GameManager : MonoBehaviour
         {
             var bricks = new List<string>();
 
-            // Recorre todos los hijos de `LadrillosManager`, es decir, todos los ladrillos actuales en la escena
             foreach (Transform brick in ladrillosManager.transform)
             {
-                // Convierte la información de cada ladrillo (posición y tipo) a una cadena
                 string brickData = $"{brick.position.x},{brick.position.y},{brick.position.z},{brick.name}";
-
-                // Añade la información del ladrillo a la lista
                 bricks.Add(brickData);
             }
 
-            // Une todas las cadenas en una sola, separada por puntos y comas
             string bricksData = string.Join(";", bricks);
-
-            // Guarda la información en PlayerPrefs
             PlayerPrefs.SetString("BricksData", bricksData);
             PlayerPrefs.Save();
         }
@@ -140,7 +132,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadBricks()
     {
-        // Limpiar ladrillos actuales en LadrillosManager
         if (ladrillosManager != null)
         {
             foreach (Transform brick in ladrillosManager.transform)
@@ -148,25 +139,21 @@ public class GameManager : MonoBehaviour
                 Destroy(brick.gameObject);
             }
 
-            // Obtener la cadena de ladrillos desde PlayerPrefs
             string bricksData = PlayerPrefs.GetString("BricksData", "");
 
             if (!string.IsNullOrEmpty(bricksData))
             {
-                // Dividir la cadena de ladrillos en una lista
                 var bricks = bricksData.Split(';');
 
                 foreach (var brickData in bricks)
                 {
                     var data = brickData.Split(',');
 
-                    // Parsear posición y tipo del ladrillo
                     float posX = float.Parse(data[0]);
                     float posY = float.Parse(data[1]);
                     float posZ = float.Parse(data[2]);
                     string brickType = data[3];
 
-                    // Elegir el prefab correcto según el tipo guardado
                     GameObject prefab = null;
                     switch (brickType)
                     {
@@ -198,7 +185,6 @@ public class GameManager : MonoBehaviour
 
     public void SaveCurrentScene()
     {
-        // Guarda el índice de la escena actual
         PlayerPrefs.SetInt("CurrentScene", GetSceneIndex());
         PlayerPrefs.Save();
         Debug.Log("Current scene saved");
@@ -206,8 +192,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadCurrentScene()
     {
-        // Carga la escena guardada
-        int sceneIndex = PlayerPrefs.GetInt("CurrentScene", 1); // Valor predeterminado 1
+        int sceneIndex = PlayerPrefs.GetInt("CurrentScene", 1); 
         SceneManager.LoadScene(sceneIndex);
         Debug.Log($"Loaded scene {sceneIndex}");
     }
@@ -217,18 +202,25 @@ public class GameManager : MonoBehaviour
         SaveCurrentScore();
         SaveBallLife();
         SaveBricks();
-        SaveCurrentScene(); // Guarda la escena actual
+        SaveCurrentScene();
         Debug.Log("Game Saved");
         savedGame = true;
     }
 
     public void LoadCurrentGame()
     {
-        LoadCurrentScene(); // Carga la escena guardada
-        //scoreManager.currentScore = LoadCurrentScore();
-        //ballLife.life = LoadBallLife();
-        //LoadBricks();
+        LoadCurrentScene();
+        StartCoroutine(LoadDataAfterSceneLoad());
         Debug.Log("Game Loaded");
         newgame = false;
+    }
+
+    private IEnumerator LoadDataAfterSceneLoad()
+    {
+        yield return new WaitUntil(() => ladrillosManager != null && scoreManager != null && ballLife != null);
+
+        scoreManager.currentScore = LoadCurrentScore();
+        ballLife.life = LoadBallLife();
+        LoadBricks();
     }
 }
