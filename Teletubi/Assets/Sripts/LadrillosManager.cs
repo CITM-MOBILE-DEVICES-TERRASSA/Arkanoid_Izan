@@ -17,6 +17,7 @@ public class LadrillosManager : MonoBehaviour
 
     void Start()
     {
+        // Solo genera ladrillos si es una nueva partida
         if (GameManager.instance != null && GameManager.instance.newgame)
         {
             SpawnBricks();

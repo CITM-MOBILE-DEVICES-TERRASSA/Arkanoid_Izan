@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Scene {scene.name} loaded. ladrillosManager: {ladrillosManager}, scoreManager: {scoreManager}, ballLife: {ballLife}");
     }
 
-    // Scene management methods
     public int GetSceneIndex()
     {
         return SceneManager.GetActiveScene().buildIndex;
@@ -84,7 +83,6 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    // Save and Load methods
     public void SaveCurrentScore()
     {
         if (scoreManager != null)
@@ -101,10 +99,11 @@ public class GameManager : MonoBehaviour
 
     public void SaveBallLife()
     {
-
-        PlayerPrefs.SetInt("BallLife", ballLife.life);
-        PlayerPrefs.Save();
-
+        if (ballLife != null)
+        {
+            PlayerPrefs.SetInt("BallLife", ballLife.life);
+            PlayerPrefs.Save();
+        }
     }
 
     public int LoadBallLife()
@@ -192,7 +191,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadCurrentScene()
     {
-        int sceneIndex = PlayerPrefs.GetInt("CurrentScene", 1); 
+        int sceneIndex = PlayerPrefs.GetInt("CurrentScene", 1);
         SceneManager.LoadScene(sceneIndex);
         Debug.Log($"Loaded scene {sceneIndex}");
     }
