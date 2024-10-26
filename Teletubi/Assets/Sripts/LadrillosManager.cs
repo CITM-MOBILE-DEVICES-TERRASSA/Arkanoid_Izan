@@ -100,20 +100,14 @@ public class LadrillosManager : MonoBehaviour
     {
         if (GetRemainingBricks() == 0)
         {
-            SaveManager.instance.SaveGame(FindObjectOfType<BallLife>(), FindObjectOfType<ScoreManager>(), this);
-            ChangeScene();
-        }
-    }
-
-    void ChangeScene()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        int nextSceneIndex = currentSceneIndex + 1;
-
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadScene(nextSceneIndex);
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.LoadNextScene();
+            }
+            else
+            {
+                Debug.Log("GameManager.instance is null");
+            }
         }
     }
 }

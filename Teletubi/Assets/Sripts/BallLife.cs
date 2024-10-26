@@ -13,9 +13,16 @@ public class BallLife : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.instance.newgame)
+        {
+            life = 3;
+        }
+        else
+        {
+            GameManager.instance.LoadBallLife();
+        }
         ballController = GetComponent<BallController>();
         audioSource = GetComponent<AudioSource>();
-        LoadBallLife(); 
     }
 
     void Update()
@@ -32,27 +39,21 @@ public class BallLife : MonoBehaviour
         {
             audioSource.Play();
             life -= 1;
+            GameManager.instance.SaveBallLife();
             lifesText.text = life.ToString();
             ballController.isLaunched = false;
-            SaveManager.instance.SaveGame(this, FindObjectOfType<ScoreManager>(), FindObjectOfType<LadrillosManager>());
         }
     }
 
     void DestroyBall()
     {
-        SaveBallLife(); 
-        SceneManager.LoadScene("Game Over");
-    }
-
-    public void SaveBallLife()
-    {
-        PlayerPrefs.SetInt("ballLife", life);
-        PlayerPrefs.Save();
-    }
-
-    public void LoadBallLife()
-    {
-        life = PlayerPrefs.GetInt("ballLife", 3); 
-        lifesText.text = life.ToString();
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.LoadGameOver();
+        }
+        else
+        {
+            Debug.Log("GameManager.instance is null");
+        }
     }
 }

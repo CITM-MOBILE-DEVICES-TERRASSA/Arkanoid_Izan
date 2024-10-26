@@ -15,7 +15,16 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        currentScore = LoadCurrentScore();
+        if (GameManager.instance.newgame)
+        {
+            ResetScore();
+            GameManager.instance.SaveCurrentScore();
+        }
+        else
+        {
+            currentScore = GameManager.instance.LoadCurrentScore();
+            UpdateUI();
+        }
         highScore = LoadHighScore();
         UpdateUI();
 
@@ -27,7 +36,6 @@ public class ScoreManager : MonoBehaviour
         if (ballLife.life <= 0)
         {
             ResetScore();
-            SaveManager.instance.SaveGame(ballLife, this, FindObjectOfType<LadrillosManager>());
             UpdateUI();
         }
     }
@@ -52,7 +60,7 @@ public class ScoreManager : MonoBehaviour
     }
     private void CheckAndSaveCurrentScore()
     {
-        SaveCurrentScore(); 
+        GameManager.instance.SaveCurrentScore();
         UpdateUI();
     }
 
@@ -73,16 +81,6 @@ public class ScoreManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private int LoadCurrentScore()
-    {
-        return PlayerPrefs.GetInt("CurrentScore", 0);
-    }
-
-    public void SaveCurrentScore()
-    {
-        PlayerPrefs.SetInt("CurrentScore", currentScore);
-        PlayerPrefs.Save();
-    }
     public void UpdateUI()
     {
         if (scoreText != null)
