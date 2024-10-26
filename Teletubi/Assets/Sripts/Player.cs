@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float plaerspeed = 5.0f;
-    private bool IA = false;
+    public bool IA = false;
     BallController ballController;
     void Start()
     {

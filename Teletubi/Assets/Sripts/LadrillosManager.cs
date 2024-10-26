@@ -15,12 +15,16 @@ public class LadrillosManager : MonoBehaviour
     public float distanceX = 0.5f;
     public float distanceY = 0.5f;
 
+    [Range(0f, 1f)] public float probabilidadLadrillo1 = 0.5f;
+    [Range(0f, 1f)] public float probabilidadLadrillo2 = 0.25f;
+    [Range(0f, 1f)] public float probabilidadLadrillo3 = 0.15f;
+    [Range(0f, 1f)] public float probabilidadLadrillo4 = 0.1f;
+
     void Start()
     {
-        if (GameManager.instance != null && GameManager.instance.newgame)
-        {
-            SpawnBricks();
-        }
+
+        SpawnBricks();
+
 
         StartCoroutine(WaitBeforeCheckingBricks());
     }
@@ -103,6 +107,7 @@ public class LadrillosManager : MonoBehaviour
     {
         if (GetRemainingBricks() == 0)
         {
+            GameManager.instance.newgame = false;
             if (GameManager.instance != null)
             {
                 GameManager.instance.LoadNextScene();

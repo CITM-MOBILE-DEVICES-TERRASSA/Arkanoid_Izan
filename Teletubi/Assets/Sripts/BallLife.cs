@@ -10,6 +10,7 @@ public class BallLife : MonoBehaviour
     BallController ballController;
     public TextMeshProUGUI lifesText;
     AudioSource audioSource;
+    Player player;
 
     void Start()
     {
@@ -17,9 +18,10 @@ public class BallLife : MonoBehaviour
         {
             life = GameManager.instance.newgame ? 3 : GameManager.instance.LoadBallLife();
         }
-
+        GameManager.instance.SaveBallLife();
         ballController = GetComponent<BallController>();
         audioSource = GetComponent<AudioSource>();
+        player = FindObjectOfType<Player>();
 
         if (lifesText != null)
         {
@@ -42,6 +44,7 @@ public class BallLife : MonoBehaviour
         {
             audioSource.Play();
             life -= 1;
+            player.IA = false;
             GameManager.instance.SaveBallLife();
             lifesText.text = life.ToString();
             ballController.isLaunched = false;

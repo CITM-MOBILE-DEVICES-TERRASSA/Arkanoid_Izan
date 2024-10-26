@@ -53,7 +53,19 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene(GetSceneIndex() + 1);
+        int currentSceneIndex = GetSceneIndex();
+        switch (currentSceneIndex)
+        {
+            case 1:
+                SceneManager.LoadScene(2);
+                break;
+            case 2:
+                SceneManager.LoadScene(3);
+                break;
+            case 3:
+                SceneManager.LoadScene(4);
+                break;
+        }
     }
 
     public void LoadMenu()
@@ -63,7 +75,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadGameOver()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(5);
     }
 
     public void LoadGame()

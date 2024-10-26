@@ -1896,6 +1896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plaerspeed: 7.333
+  IA: 0
 --- !u!212 &1235166541
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2092,6 +2093,7 @@ GameObject:
   - component: {fileID: 1392559569}
   - component: {fileID: 1392559568}
   - component: {fileID: 1392559567}
+  - component: {fileID: 1392559570}
   m_Layer: 0
   m_Name: LadrillosManager
   m_TagString: Untagged
@@ -2119,10 +2121,10 @@ MonoBehaviour:
   spawnArea: {fileID: 1392559568}
   distanceX: 0.5
   distanceY: 0.5
-  probabilidadLadrillo1: 0.5
-  probabilidadLadrillo2: 0.25
-  probabilidadLadrillo3: 0.15
-  probabilidadLadrillo4: 0.1
+  probabilidadLadrillo1: 0.2
+  probabilidadLadrillo2: 0.35
+  probabilidadLadrillo3: 0.25
+  probabilidadLadrillo4: 0.2
 --- !u!61 &1392559568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2183,6 +2185,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1392559570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392559566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9789152e7c45242aa6e2f60b66bb5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1523864630
 GameObject:
   m_ObjectHideFlags: 0
